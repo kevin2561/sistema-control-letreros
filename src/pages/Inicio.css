@@ -1,0 +1,14 @@
+#main-inicio {
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+#seacher-sign {
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+}

@@ -7,7 +7,7 @@ export const leerServicio = async () => {
 
 }
 
-export const crearLetrero = async () => {
+export const crearLetrero = async (letrero) => {
     const response = await fetch(`${this.url}`)
     const data = await response.json({
         method: body,

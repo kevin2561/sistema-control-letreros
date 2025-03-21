@@ -2,42 +2,29 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import CrearLetrero from './pages/CrearLetrero'
+import Inicio from './pages/inicio'
+import Footer from './common/Footer'
+import Header from './common/Header'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <section id="mian-content">
+      <BrowserRouter>
+        <Header />
+        <main id='main-content'>
 
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/crear-letrero" element={<CrearLetrero />} />
 
-        <div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Fecha Inicio</th>
-                <th scope="col">Fecha Caducada</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col-2" colSpan="2">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Actualizar</td>
-                <td>Eliminar</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </section>
-
+          </Routes>
+        </main>
+        <Footer />
+      </BrowserRouter>
     </>
   )
 }

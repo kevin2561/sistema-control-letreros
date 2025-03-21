@@ -1,0 +1,34 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#main-content {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Cambiado height: 100vh por min-height */
+}
+
+/* Asegura que el footer quede en la parte inferior */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background: black;
+    color: white;
+    overflow: hidden;
+
+}
