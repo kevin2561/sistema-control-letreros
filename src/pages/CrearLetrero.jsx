@@ -1,14 +1,58 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './CrearLetrero.css'
 import { crearLetrero } from '../services/servicios.'
+import { Letrero } from '../model/letrero'
 export default function CrearLetrero() {
+    const today = () => {
+        const date = new Date()
+        const anio = date.getFullYear()
+        const mes = String(date.getMonth() + 1).padStart(2, "0")
+        const dia = String(date.getDay()).padStart(2, "0")
+        return `${anio}-${mes}-${dia}`
+        console.log(dateToday)
+    }
 
-    // crearLetrero()
 
-    const formCreateSing = (e) => {
+    const [formData, setFormData] = useState({
+        "nombre": "",
+        "telefono": "",
+        "fechaInicio": today(),
+        "fechaCaducada": "",
+
+    })
+
+
+    const handlerOnchange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        })
+
+    }
+
+    const formCreateSing = async (e) => {
         e.preventDefault();
         console.log("form")
+        const nuevoLetrero = new Letrero(formData.nombre, formData.telefono, formData.fechaInicio, formData.fechaCaducada)
+        try {
+            crearLetrero(nuevoLetrero)
+            // console.log('Letrero creado:', respuesta);
+            setFormData({
+                nombre: "",
+                telefono: "",
+                fechaInicio: today(),
+                fechaCaducada: ""
+            })
+
+
+        } catch (error) {
+            console.log(error)
+
+        }
     }
+
+
+
     return (
         <>
             <section id='form-create-sign'>
@@ -23,15 +67,16 @@ export default function CrearLetrero() {
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Nombre</label>
                             <input type="text" name="nombre" className="form-control"
-                                placeholder="Ej: Dante Alighieri" required />
+                                onChange={(e) => handlerOnchange(e)}
+                                placeholder="Ej: Dante Alighieri" value={formData.nombre} required />
 
                         </div>
                         {/* Campo Número  */}
 
                         <div className="col-md-6">
-                            <label className="form-label fw-bold">Número</label>
-                            <input type="text" name="documento" className="form-control"
-                                placeholder="963852741" />
+                            <label className="form-label fw-bold">Teléfono (Opcional)</label>
+                            <input type="text" name="telefono" className="form-control"
+                                placeholder="Ej: 963852741" maxLength={9} onChange={(e) => handlerOnchange(e)} value={formData.telefono} />
                         </div>
                     </div>
 
@@ -39,14 +84,14 @@ export default function CrearLetrero() {
                     <div className="row g-3 mt-3">
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Fecha Inicio</label>
-                            <input type="date" name="fecha" className="form-control" required />
+                            <input type="date" name="fechaInicio" onChange={(e) => handlerOnchange(e)} className="form-control" value={formData.fechaInicio} required />
 
                         </div>
                         {/* <!-- Campo Fecha Caduca */}
 
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Fecha Caduca</label>
-                            <input type="date" name="fecha" className="form-control" required />
+                            <input type="date" name="fechaCaducada" onChange={(e) => handlerOnchange(e)} className="form-control" value={formData.fechaCaducada} required />
 
 
                         </div>

@@ -1,8 +1,8 @@
-export class letrero {
+export class Letrero {
     constructor(nombre, telefono, fechInicio, fechaCaducada) {
-        this._nombre = nombre
-        this._telefono = telefono
-        this._fechInicio = fechInicio
+        this.nombre = nombre
+        this.telefono = telefono
+        this.fechInicio = fechInicio
         this._fechaCaducada = fechaCaducada
 
     }
@@ -20,10 +20,10 @@ export class letrero {
         return this.telefono = telefono
     }
     getFechaInicio() {
-        return this._fechInicio;
+        return this.fechInicio;
     }
-    setFechaInicio(_fechInicio) {
-        return this._fechInicio = _fechInicio
+    setFechaInicio(fechInicio) {
+        return this.fechInicio = fechInicio
     }
     getFechaCaducada() {
         return this._fechaCaducada;
