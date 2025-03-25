@@ -12,7 +12,49 @@
     display: flex;
     flex-direction: row;
 }
-.img-letrero{
+
+.img-letrero {
     max-width: 75px;
     min-height: 75px;
+}
+
+.icons-styles {
+    font-size: 1.5rem;
+}
+
+
+
+/* MODAL IMAGEN */
+#modalImagen .modal-content {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#modalImagen .modal-backdrop.show {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+#modalImagen .modal-header {
+    border-bottom: 0px !important;
+}
+
+.img-modal-container {
+    min-height: 70vh;
+    /* Da un alto mínimo al contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Clase para la imagen dentro del modal */
+.img-modal {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#modalImagen .btn-close {
+    font-size: 30px;
 }

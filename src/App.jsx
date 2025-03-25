@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CrearLetrero from './pages/CrearLetrero'
-import Inicio from './pages/inicio'
+import Inicio from './pages/Inicio'
 import Footer from './common/Footer'
 import Header from './common/Header'
 
