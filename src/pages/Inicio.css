@@ -12,3 +12,7 @@
     display: flex;
     flex-direction: row;
 }
+.img-letrero{
+    max-width: 75px;
+    min-height: 75px;
+}

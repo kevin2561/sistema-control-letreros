@@ -1,13 +1,20 @@
 
-const url = "";
-export const leerServicio = async (funcion) => {
+const url = "http://localhost:9090/letrero";
+export const leerServicio = async () => {
+    try {
+        const response = await fetch(`${url}/get`)
+        if (!response.ok) {
+            console.log(`Error R: ${response.status}`)
+        }
+        const data = await response.json()
+        console.log(data)
+        return data;
 
-    const response = await fetch(`${this.url}`)
-    const data = await response.json()
-    // funcion(data)
-    console.log(data);
-
+    } catch (error) {
+        console.log(`Error Catch: ${error}`)
+    }
 }
+
 
 export const crearLetrero = async (letrero) => {
     try {
