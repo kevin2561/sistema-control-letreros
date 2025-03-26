@@ -18,10 +18,12 @@
 .img-letrero {
     max-width: 75px;
     min-height: 75px;
+    cursor: pointer;
 }
 
 .icons-styles {
     font-size: 1.5rem;
+    cursor: pointer;
 }
 
 

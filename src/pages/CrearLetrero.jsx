@@ -1,25 +1,23 @@
 import React, { useRef, useState } from 'react'
 import './CrearLetrero.css'
-import { createSing } from '../services/servicios.'
 import { Letrero } from '../model/letrero'
+import { createServiceSing } from '../services/servicios.'
 export default function CrearLetrero() {
     const today = () => {
-        const date = new Date()
-        const anio = date.getFullYear()
-        const mes = String(date.getMonth() + 1).padStart(2, "0")
-        const dia = String(date.getDay()).padStart(2, "0")
-        return `${anio}-${mes}-${dia}`
-        // console.log(dateToday)
+        const date = new Date();
+        const anio = date.getFullYear();
+        const mes = String(date.getMonth() + 1).padStart(2, "0");
+        const dia = String(date.getDate()).padStart(2, "0");
+        return `${anio}-${mes}-${dia}`;
     }
-
 
     const [formData, setFormData] = useState({
         "cliente": "",
-        "apellido": "",
         "telefono": "",
+        "apellido": "",
         "fechaInicio": today(),
         "fechaCaducada": "",
-        "imagen": "",
+        "imagen": null,
     })
 
     const fileInputRef = useRef(null);
@@ -33,40 +31,29 @@ export default function CrearLetrero() {
             setFormData({ ...formData, [name]: value });
 
         }
-        // setFormData({
-        //     ...formData,
-        //     [e.target.name]: e.target.value
-        // })
     }
 
     const formCreateSing = async (e) => {
         e.preventDefault();
         const nuevoLetrero = new Letrero(formData.cliente, formData.apellido, formData.telefono, formData.fechaInicio, formData.fechaCaducada, formData.imagen)
         try {
-            createSing(nuevoLetrero)
-            console.log(nuevoLetrero)
-            // console.log('Letrero creado:', respuesta);
+            createServiceSing(nuevoLetrero)
+            // console.log(nuevoLetrero)
             setFormData({
                 cliente: "",
                 apellido: "",
                 telefono: "",
                 fechaInicio: today(),
                 fechaCaducada: "",
-                imagen: ""
+                imagen: null
             })
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
-
-
         } catch (error) {
             console.log(error)
-
         }
     }
-
-
-
     return (
         <>
             <section id='form-create-sign'>
@@ -125,11 +112,6 @@ export default function CrearLetrero() {
                         </div>
                     </div >
 
-
-
-
-
-
                     {/* Botón Crear */}
                     <div className="text-center mt-4">
                         <button type="submit" className="btn btn-primary ps-4 pe-4" >
@@ -140,9 +122,6 @@ export default function CrearLetrero() {
                 </form >
 
             </section >
-
-
-
         </>
     )
 }

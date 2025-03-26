@@ -1,10 +1,29 @@
 import React from 'react'
+import { deleteSing } from '../services/servicios.';
 
-export default function EliminarLetrero({ letrero }) {
+export default function EliminarLetrero({ letrero, onDelete }) {
 
-    const deleteSing = (e) => {
+
+    const formDeleteSing = async (e) => {
         e.preventDefault();
-        console.log(letrero)
+        document.activeElement.blur();
+
+        try {
+            const result = await deleteSing(Number(letrero.idLetrero))
+            if (result === 1) {
+                // console.log(`Exito`)
+
+                if (onDelete) onDelete(); // Aquí se vuelve a obtener la lista actualizada
+
+            } else {
+                console.log(`Error al elminar`)
+
+            }
+
+        } catch (error) {
+            console.log("Error ElmininarLetrero: " + error)
+
+        }
 
     }
     return (
@@ -17,13 +36,13 @@ export default function EliminarLetrero({ letrero }) {
                             <h1 className="modal-title fs-5" id="modalDeleteSingLabel">Eliminar Letrero</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form onSubmit={(e) => deleteSing(e)}>
+                        <form onSubmit={(e) => formDeleteSing(e)}>
                             <div className="modal-body">
                                 ¿Está seguro de eliminar al Sr(a). {letrero.cliente}?
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Eliminar</button>
+                                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Eliminar</button>
                             </div>
                         </form>
                     </div>

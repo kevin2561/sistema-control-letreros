@@ -5,7 +5,7 @@ import './Header.css'
 
 export default function Header() {
   return (
-    <header>
+    <header className='sticky-top'>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <div className='content-logo'>
