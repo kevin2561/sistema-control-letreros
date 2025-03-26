@@ -1,5 +1,5 @@
 #main-inicio {
-    background-color: red;
+    /* background-color: red; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,9 +8,11 @@
 }
 
 #seacher-sign {
-    background-color: aqua;
+    /* background-color: aqua; */
     display: flex;
     flex-direction: row;
+    width: 80%;
+    gap: 0px 20px;
 }
 
 .img-letrero {

@@ -1,6 +1,6 @@
 
 const url = "http://localhost:9090/letrero";
-export const leerServicio = async () => {
+export const readSing = async () => {
     try {
         const response = await fetch(`${url}/get`)
         if (!response.ok) {
@@ -16,7 +16,7 @@ export const leerServicio = async () => {
 }
 
 
-export const crearLetrero = async (letrero) => {
+export const createSing = async (letrero) => {
     try {
         const response = await fetch(`${url}/post`, {
             method: "POST",
@@ -32,5 +32,20 @@ export const crearLetrero = async (letrero) => {
         console.error(error);
     }
 
+
+}
+
+
+export const updateSing = async (id) => {
+    const response = await fetch(`${url}/put/${id}`)
+    const data = await response.json()
+    consolelog(data)
+
+}
+
+export const deleteSing = async (id) => {
+    const response = await fetch(`${url}/delete/${id}`)
+    const data = await response.json()
+    consolelog(data)
 
 }
