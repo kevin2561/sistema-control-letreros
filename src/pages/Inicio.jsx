@@ -3,6 +3,7 @@ import './Inicio.css'
 import Respuesta from '../components/Respuesta'
 import { readSing } from '../services/servicios.'
 import noImagen from '../assets/no-imagen.jpg'
+import cargando from '../assets/loading.svg'
 import Modal from 'bootstrap/js/dist/modal';
 import EliminarLetrero from '../components/EliminarLetrero'
 import ActualizarLetrero from '../components/ActualizarLetrero'
@@ -11,17 +12,23 @@ export default function inicio() {
     const [showSing, setShowSing] = useState([])
     const [imageSelect, setImageSelect] = useState(null)
     const [itemSelect, setItemSelect] = useState({})
+    const [loading, setLoading] = useState(false)
 
     const readSignTable = async () => {
 
         try {
             const data = await readSing();
+            data.sort((a, b) => a.idLetrero - b.idLetrero);
             // console.log("Lista actualizada:", data);
+            setLoading(true)
             setShowSing(data);
 
         } catch (error) {
             console.error(error);
 
+        }
+        finally {
+            setLoading(false);
         }
     }
 
@@ -128,9 +135,12 @@ export default function inicio() {
                                 </tr>
                             </thead>
                             <tbody >
-                                {
-                                    // ? 'table-danger' : ''
-                                    showSing.map((item, index) => (
+                                {loading ? (<tr>
+                                    <td colSpan="11" className="text-center">
+                                        <img className="i-loading d-block mx-auto" src={cargando} alt="Cargando..." />
+                                    </td>
+                                </tr>)
+                                    : (showSing.map((item, index) => (
                                         <tr key={item.idLetrero} className={getRowClass(item.fechaCaducada) ? 'table-danger' : ''} >
                                             <td>{index + 1}</td>
                                             <td>{item.cliente}</td>
@@ -144,13 +154,16 @@ export default function inicio() {
                                             <td><i onClick={() => selectSing(item)} className="bi bi-pencil-square icons-styles text-primary" data-bs-toggle="modal" data-bs-target="#modalUpdateSing" title="Editar"></i></td>
                                             <td><i onClick={() => selectSing(item)} className="bi bi-trash3 icons-styles text-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteSing" title="Eliminar" ></i></td>
                                         </tr>
-                                    ))
+                                    )))
+
                                 }
+
                             </tbody>
                         </table>
                         {modalImage()}
-                        {<EliminarLetrero letrero={itemSelect} onDelete={readSignTable} />}
-                        {<ActualizarLetrero letrero={itemSelect} onUpdate={readSignTable} />}
+                        {<EliminarLetrero letrero={itemSelect} onDelete={readSignTable} setLoading={setLoading} />}
+                        {<ActualizarLetrero letrero={itemSelect} onUpdate={readSignTable} setLoading={setLoading} />}
+
 
                     </div>
 

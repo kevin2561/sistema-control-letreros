@@ -32,3 +32,14 @@ footer {
     overflow: hidden;
 
 }
+/* .content-loading{
+    background-color: red;
+    width: 750px;
+    height: 500px;
+} */
+.i-loading {
+    width: 300px !important;
+    height: 300px !important;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+  }

@@ -18,20 +18,19 @@ export const readSing = async () => {
 
 export const createServiceSing = async (letrero) => {
     try {
-        const formData = new FormData();
-        formData.append("cliente", letrero.cliente ?? "");
-        formData.append("apellido", letrero.apellido ?? "");
-        formData.append("fechaInicio", letrero.fechInicio ?? "");
-        formData.append("fechaCaducada", letrero.fechaCaducada ?? "");
+        // const formData = new FormData();
+        // formData.append("cliente", letrero.cliente ?? "");
+        // formData.append("apellido", letrero.apellido ?? "");
+        // formData.append("fechaInicio", letrero.fechInicio ?? "");
+        // formData.append("fechaCaducada", letrero.fechaCaducada ?? "");
 
-        if (letrero.telefono && letrero.telefono.trim() !== "") {
-            formData.append("telefono", letrero.telefono);
-        }
-        if (letrero.imagen) {
-            formData.append("imagen", letrero.imagen);
-        }
-
-
+        // if (letrero.telefono && letrero.telefono.trim() !== "") {
+        //     formData.append("telefono", letrero.telefono);
+        // }
+        // if (letrero.imagen) {
+        //     formData.append("imagen", letrero.imagen);
+        // }
+        const formData = formDataScheme(letrero)
         const response = await fetch(`${url}/post`, {
             method: "POST",
             body: formData,
@@ -45,15 +44,26 @@ export const createServiceSing = async (letrero) => {
     catch (error) {
         console.error(error);
     }
-
-
 }
 
+export const updateServiceSing = async (id, letrero) => {
+    try {
+        const formData = formDataScheme(letrero)
+        const response = await fetch(`${url}/put/${id}`, {
+            method: "PUT",
+            body: formData
+        })
+        if (!response.ok) throw new Error("Error al crear el letrero");
+        const data = await response.json()
+        console.log("PUT: " + data)
+        return data
 
-export const updateServiceSing = async (id) => {
-    const response = await fetch(`${url}/put/${id}`)
-    const data = await response.json()
-    consolelog(data)
+    } catch (error) {
+        console.log("Error Servicio: " + error)
+
+
+    }
+
 
 }
 
@@ -64,12 +74,31 @@ export const deleteSing = async (id) => {
         })
         const data = await response.json();
         return data;
-        consolelog(data)
+        console.log(data)
 
     } catch (error) {
-        consolelog(error)
+        console.log(error)
 
     }
+
+
+}
+
+
+const formDataScheme = (letrero) => {
+    const formData = new FormData();
+    formData.append("cliente", letrero.cliente ?? "");
+    formData.append("apellido", letrero.apellido ?? "");
+    formData.append("fechaInicio", letrero.fechInicio ?? "");
+    formData.append("fechaCaducada", letrero.fechaCaducada ?? "");
+
+    if (letrero.telefono != null && String(letrero.telefono).trim() !== "") {
+        formData.append("telefono", letrero.telefono);
+    }
+    if (letrero.imagen) {
+        formData.append("imagen", letrero.imagen);
+    }
+    return formData;
 
 
 }

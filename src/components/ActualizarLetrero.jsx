@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Letrero } from '../model/letrero'
+import { updateServiceSing } from '../services/servicios.'
 
-export default function ActualizarLetrero({ letrero, onUpdate }) {
+export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
     const [formData, setFormData] = useState({
         "cliente": "",
         "telefono": "",
@@ -10,6 +11,7 @@ export default function ActualizarLetrero({ letrero, onUpdate }) {
         "fechaCaducada": "",
         "imagen": null,
     })
+    const fileInputRef = useRef(null);
 
     const initSing = () => {
         if (letrero) {
@@ -21,6 +23,9 @@ export default function ActualizarLetrero({ letrero, onUpdate }) {
                 "fechaCaducada": letrero.fechaCaducada,
                 "imagen": null,
             })
+        }
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
         }
     }
 
@@ -40,15 +45,26 @@ export default function ActualizarLetrero({ letrero, onUpdate }) {
 
         }
     }
-    const fileInputRef = useRef(null);
 
 
-    const updateSing = (e) => {
+    const updateSing = async (e) => {
         e.preventDefault();
         document.activeElement.blur();
 
         const letreroActualizado = new Letrero(formData.cliente, formData.apellido, formData.telefono, formData.fechaInicio, formData.fechaCaducada, formData.imagen)
-        // console.log(letreroActualizado)
+
+        try {
+            setLoading(true)
+            const result = await updateServiceSing(letrero.idLetrero, letreroActualizado);
+            console.log("Result: " + result);
+            if (onUpdate) onUpdate();
+
+        } catch (error) {
+            console.log("Error AL: " + error);
+        }
+        finally {
+            setLoading(false)
+        }
 
     }
 
@@ -117,7 +133,7 @@ export default function ActualizarLetrero({ letrero, onUpdate }) {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" className="btn btn-primary">Actualizar</button>
+                                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
                             </div>
                         </form>
                     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { deleteSing } from '../services/servicios.';
 
-export default function EliminarLetrero({ letrero, onDelete }) {
+export default function EliminarLetrero({ letrero, onDelete, setLoading }) {
 
 
     const formDeleteSing = async (e) => {
@@ -9,6 +9,7 @@ export default function EliminarLetrero({ letrero, onDelete }) {
         document.activeElement.blur();
 
         try {
+            setLoading(true)
             const result = await deleteSing(Number(letrero.idLetrero))
             if (result === 1) {
                 // console.log(`Exito`)
@@ -23,6 +24,8 @@ export default function EliminarLetrero({ letrero, onDelete }) {
         } catch (error) {
             console.log("Error ElmininarLetrero: " + error)
 
+        } finally {
+            setLoading(false)
         }
 
     }
