@@ -2,7 +2,11 @@ import React, { useRef, useState } from 'react'
 import './CrearLetrero.css'
 import { Letrero } from '../model/letrero'
 import { createServiceSing } from '../services/servicios.'
+import Respuesta from '../components/Respuesta'
 export default function CrearLetrero() {
+    const [mensaje, setMensaje] = useState("");
+    const [tipoMensaje, setTipoMensaje] = useState(false);
+
     const today = () => {
         const date = new Date();
         const anio = date.getFullYear();
@@ -37,8 +41,14 @@ export default function CrearLetrero() {
         e.preventDefault();
         const nuevoLetrero = new Letrero(formData.cliente, formData.apellido, formData.telefono, formData.fechaInicio, formData.fechaCaducada, formData.imagen)
         try {
-            createServiceSing(nuevoLetrero)
-            // console.log(nuevoLetrero)
+            const result = await createServiceSing(nuevoLetrero)
+            setMensaje("")
+            setTimeout(() => {
+                setMensaje(`Letrero N°${result.idLetrero} Creado Exitosamente.`)
+                setTipoMensaje(true)
+            }, 10);
+
+            // console.log(result.idLetrero)
             setFormData({
                 cliente: "",
                 apellido: "",
@@ -50,12 +60,20 @@ export default function CrearLetrero() {
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
+
         } catch (error) {
-            console.log(error)
+            // console.log(error)
+            setMensaje("")
+            setTimeout(() => {
+                setMensaje("Error, Intento más tarde.")
+                setTipoMensaje(false)
+            }, 10);
+
         }
     }
     return (
         <>
+            <Respuesta mensaje={mensaje} tipo={tipoMensaje} />
             <section id='form-create-sign'>
                 <div className='text-center'>
                     <h2 className='h2'>Crear Núevo Letrero</h2>

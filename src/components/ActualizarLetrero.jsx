@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Letrero } from '../model/letrero'
 import { updateServiceSing } from '../services/servicios.'
+import Respuesta from './Respuesta'
 
 export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
     const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
         "fechaCaducada": "",
         "imagen": null,
     })
+    const [mensaje, setMensaje] = useState("")
+    const [tipoMensaje, setTipoMensaje] = useState(false);
     const fileInputRef = useRef(null);
 
     const initSing = () => {
@@ -33,8 +36,6 @@ export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
         initSing()
     }, [letrero])
 
-
-
     const handlerOnchange = (e) => {
         const { name, value, files } = e.target;
         if (name === "imagen") {
@@ -45,7 +46,6 @@ export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
 
         }
     }
-
 
     const updateSing = async (e) => {
         e.preventDefault();
@@ -58,9 +58,18 @@ export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
             const result = await updateServiceSing(letrero.idLetrero, letreroActualizado);
             console.log("Result: " + result);
             if (onUpdate) onUpdate();
+            setMensaje("")
+            setTimeout(() => {
+                setMensaje(`Letrero N°${result.idLetrero} Actualizado .`)
+                setTipoMensaje(true)
+            }, 10);
 
         } catch (error) {
-            console.log("Error AL: " + error);
+            setMensaje("")
+            setTimeout(() => {
+                setMensaje("Error, Intento más tarde.")
+                setTipoMensaje(false)
+            }, 10);
         }
         finally {
             setLoading(false)
@@ -71,11 +80,12 @@ export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
 
     return (
         <>
+            <Respuesta mensaje={mensaje} tipo={tipoMensaje} />
             <div className="modal fade" id="modalUpdateSing" tabIndex="-1" aria-labelledby="modalUpdateSingLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="modalUpdateSingLabel">Actualizar Letrero</h1>
+                            <h1 className="modal-title fs-5" id="modalUpdateSingLabel">Actualizar Letrero N°{letrero.idLetrero}</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form onSubmit={(e) => updateSing(e)}>

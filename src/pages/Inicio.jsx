@@ -13,6 +13,7 @@ export default function inicio() {
     const [imageSelect, setImageSelect] = useState(null)
     const [itemSelect, setItemSelect] = useState({})
     const [loading, setLoading] = useState(false)
+    const [seacherText, setSeacherText] = useState("")
 
     const readSignTable = async () => {
 
@@ -100,6 +101,9 @@ export default function inicio() {
         setItemSelect({ ...item })
     }
 
+    const filterSign = (e) => {
+
+    }
 
     useEffect(() => {
         readSignTable()
@@ -107,22 +111,26 @@ export default function inicio() {
 
     return (
         <>
-            <Respuesta />
-
             <main id='main-inicio' className='container'>
+                <div className='my-5'>
+                    <h1>Letreros</h1>
+                </div>
                 <aside id="seacher-sign" className='mb-5'>
-                    <input type="text" placeholder='Buscar' className='form-control border border-primary' />
-                    <div>
-                        <button className='btn btn-primary'>Buscar</button>
-                    </div>
+                    <form onSubmit={(e) => filterSign(e)} className='d-flex'>
+                        <input type="text" placeholder='Buscar' className='form-control border border-primary' value={seacherText} />
+                        <div>
+                            <button type='submit' className='btn btn-primary'>Buscar</button>
+                        </div>
+                    </form>
                 </aside>
 
                 <section id="mian-content" className='container'>
                     <div>
-                        <table className="table text-center align-middle">
+                        <table className="table table-sm text-center align-middle">
                             <thead className='table-dark'>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Código</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
                                     <th scope="col">Teléfono</th>
@@ -143,6 +151,7 @@ export default function inicio() {
                                     : (showSing.map((item, index) => (
                                         <tr key={item.idLetrero} className={getRowClass(item.fechaCaducada) ? 'table-danger' : ''} >
                                             <td>{index + 1}</td>
+                                            <td>{item.idLetrero}</td>
                                             <td>{item.cliente}</td>
                                             <td>{(item.apellido === null || item.apellido === "") ? "No proporcionado" : item.apellido}</td>
                                             <td>{item.telefono === null ? "No proporcionado" : item.telefono}</td>

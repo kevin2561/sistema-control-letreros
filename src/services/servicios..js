@@ -18,18 +18,6 @@ export const readSing = async () => {
 
 export const createServiceSing = async (letrero) => {
     try {
-        // const formData = new FormData();
-        // formData.append("cliente", letrero.cliente ?? "");
-        // formData.append("apellido", letrero.apellido ?? "");
-        // formData.append("fechaInicio", letrero.fechInicio ?? "");
-        // formData.append("fechaCaducada", letrero.fechaCaducada ?? "");
-
-        // if (letrero.telefono && letrero.telefono.trim() !== "") {
-        //     formData.append("telefono", letrero.telefono);
-        // }
-        // if (letrero.imagen) {
-        //     formData.append("imagen", letrero.imagen);
-        // }
         const formData = formDataScheme(letrero)
         const response = await fetch(`${url}/post`, {
             method: "POST",
@@ -38,7 +26,7 @@ export const createServiceSing = async (letrero) => {
 
         if (!response.ok) throw new Error("Error al crear el letrero");
         const data = await response.json();
-        console.log(`Exito: ${data}`)
+        // console.log(data)
         return data;
     }
     catch (error) {
