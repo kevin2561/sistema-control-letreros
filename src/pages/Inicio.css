@@ -11,8 +11,36 @@
     /* background-color: aqua; */
     display: flex;
     flex-direction: row;
-    width: 80%;
-    gap: 0px 20px;
+    width: 100%;
+}
+#form-filter-sign{
+    width: 100%;
+    gap: 0px 30px;
+}
+#table-main{
+    max-height: 700px !important; /* Ajusta la altura según necesites */
+    overflow-y: auto; /* Agrega scroll vertical */
+    border: 1px solid #ccc; /* Opcional: para visualizar mejor el área */
+}
+#table-main table {
+    width: 100%;
+    border-collapse: collapse;
+    /* margin: 0px 10px; */
+    /* background-color: red; */
+        margin-bottom: 0rem !important;
+}
+
+#table-main th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    /* text-align: left; */
+}
+
+#table-main th {
+    background-color: #333;
+    color: white;
+    position: sticky;
+    top: 0;
 }
 
 .img-letrero {
@@ -62,13 +90,15 @@
 #modalImagen .btn-close {
     font-size: 30px;
 }
+
 /* LOADING */
-#content-loading{
+#content-loading {
     width: 350px;
     height: 350px;
 
 }
-#content-loading img{
+
+#content-loading img {
     width: 100% !important;
     height: 100% !important;
 }

@@ -65,7 +65,7 @@ export default function CrearLetrero() {
             console.log("Error Page " + error)
             setMensaje("")
             setTimeout(() => {
-                setMensaje("Error, Intento más tarde.")
+                setMensaje("Error, Intentelo de nuevo.")
                 setTipoMensaje(false)
             }, 10);
 
@@ -75,8 +75,8 @@ export default function CrearLetrero() {
         <>
             <Respuesta mensaje={mensaje} tipo={tipoMensaje} />
             <section id='form-create-sign'>
-                <div className='text-center'>
-                    <h2 className='h2'>Crear Núevo Letrero</h2>
+                <div className='text-center my-3'>
+                    <h2 className='h2'>Crear Nuevo Letrero</h2>
                 </div>
                 <form onSubmit={(e) => formCreateSing(e)} className="mb-4 p-4 border rounded shadow-lg bg-white mx-auto">
 

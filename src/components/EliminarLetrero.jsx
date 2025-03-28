@@ -9,15 +9,11 @@ export default function EliminarLetrero({ letrero, onDelete, setLoading }) {
     const formDeleteSing = async (e) => {
         e.preventDefault();
         document.activeElement.blur();
-
         try {
             setLoading(true)
             const result = await deleteSing(Number(letrero.idLetrero))
             if (result === 1) {
-                // console.log(`Exito`)
-
                 if (onDelete) onDelete(); // Aquí se vuelve a obtener la lista actualizada
-
                 setMensaje("")
                 setTimeout(() => {
                     setMensaje(`Letrero N°${letrero.idLetrero} Eliminado.`)
@@ -31,11 +27,10 @@ export default function EliminarLetrero({ letrero, onDelete, setLoading }) {
                     setTipoMensaje(false)
                 }, 10);
             }
-
         } catch (error) {
             setMensaje("")
             setTimeout(() => {
-                setMensaje("Error, Intento más tarde.")
+                setMensaje(`Error, al Eliminar el Letrero N°${letrero.idLetrero}`)
                 setTipoMensaje(false)
             }, 10);
 

@@ -53,7 +53,7 @@ export default function inicio() {
         const endMonth = end.getMonth();
 
         const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth)
-        return totalMonths
+        return totalMonths > 0 ? totalMonths : 0
 
     }
     const getRowClass = (fechaCducada) => {
@@ -78,30 +78,29 @@ export default function inicio() {
 
     }
 
-    const filterSign = (e) => {
-
-    }
-
     const selectSing = (item) => {
         setItemSelect({ ...item })
     }
+
+    const filteredData = showSing.filter(item => {
+
+        const result = item.cliente?.toLowerCase().includes(seacherText.toLowerCase()) || item.apellido?.toLowerCase().includes(seacherText.toLowerCase())
+        return result;
+    });
+
     const mainContent = () => {
         return (
             <main id='main-inicio' className='container'>
                 <div className='my-5'>
-                    <h1>Letreros</h1>
+                    <h1 className='text-uppercase'>Letreros</h1>
                 </div>
                 <aside id="seacher-sign" className='mb-5'>
-                    <form onSubmit={(e) => filterSign(e)} className='d-flex'>
-                        <input type="text" placeholder='Buscar' className='form-control border border-primary' value={seacherText} />
-                        <div>
-                            <button type='submit' className='btn btn-primary'>Buscar</button>
-                        </div>
-                    </form>
+                    <input type="text" placeholder='Ingrese nombre o apellido para buscar...' onChange={(e) => setSeacherText(e.target.value)}
+                        className='form-control border border-primary' value={seacherText} />
                 </aside>
 
                 <section id="mian-content" className='container'>
-                    <div>
+                    <div id='table-main' >
                         <table className="table table-sm text-center align-middle">
                             <thead className='table-dark'>
                                 <tr>
@@ -110,45 +109,48 @@ export default function inicio() {
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
                                     <th scope="col">Teléfono</th>
-                                    <th scope="col">Fecha Inicio</th>
-                                    <th scope="col">Fecha de Vencimiento</th>
+                                    <th scope="col">Fecha de Inicio</th>
+                                    <th scope="col">Fecha de caducidad</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Meses</th>
                                     <th scope="col">Imagen</th>
                                     <th scope="col" colSpan="2">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody >
-                                {showSing.map((item, index) => (
-                                    <tr key={item.idLetrero} className={getRowClass(item.fechaCaducada) ? 'table-danger' : ''} >
-                                        <td>{index + 1}</td>
-                                        <td>{item.idLetrero}</td>
-                                        <td>{item.cliente}</td>
-                                        <td>{(item.apellido === null || item.apellido === "") ? "No proporcionado" : item.apellido}</td>
-                                        <td>{item.telefono === null ? "No proporcionado" : item.telefono}</td>
-                                        <td>{formDate(item.fechaInicio)}</td>
-                                        <td>{formDate(item.fechaCaducada)}</td>
-                                        <td>{getRowClass(item.fechaCaducada) ? 'Vencido' : 'Activo'}</td>
-                                        <td>{getMonthDifference(item.fechaInicio, item.fechaCaducada)}</td>
-                                        <td>
-                                            <img onClick={(e) => mostrarImagenGrande(item.imagen)} className='img-letrero'
-                                                src={item.imagen != null ? item.imagen : noImagen} alt={item.cliente} title='Ver Imagen' />
-                                        </td>
-                                        <td>
-                                            <i onClick={() => selectSing(item)} className="bi bi-pencil-square icons-styles text-primary"
-                                                data-bs-toggle="modal" data-bs-target="#modalUpdateSing" title="Editar"></i>
-                                        </td>
-                                        <td>
-                                            <i onClick={() => selectSing(item)} className="bi bi-trash3 icons-styles text-danger"
-                                                data-bs-toggle="modal" data-bs-target="#modalDeleteSing" title="Eliminar"></i>
-                                        </td>
+                            <tbody>
+                                {filteredData.length > 0
+                                    ? filteredData.map((item, index) => (
+                                        <tr key={item.idLetrero} className={getRowClass(item.fechaCaducada) ? 'table-danger' : ''} >
+                                            <td>{index + 1}</td>
+                                            <td>{item.idLetrero}</td>
+                                            <td>{item.cliente}</td>
+                                            <td>{(item.apellido === null || item.apellido === "") ? "No proporcionado" : item.apellido}</td>
+                                            <td>{item.telefono === null ? "No proporcionado" : item.telefono}</td>
+                                            <td>{formDate(item.fechaInicio)}</td>
+                                            <td>{formDate(item.fechaCaducada)}</td>
+                                            <td>{getRowClass(item.fechaCaducada) ? 'Vencido' : 'Activo'}</td>
+                                            <td>{getMonthDifference(item.fechaInicio, item.fechaCaducada)}</td>
+                                            <td>
+                                                <img onClick={(e) => mostrarImagenGrande(item.imagen)} className='img-letrero'
+                                                    src={item.imagen != null ? item.imagen : noImagen} alt={item.cliente} title='Ver Imagen' />
+                                            </td>
+                                            <td>
+                                                <i onClick={() => selectSing(item)} className="bi bi-pencil-square icons-styles text-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#modalUpdateSing" title="Editar"></i>
+                                            </td>
+                                            <td>
+                                                <i onClick={() => selectSing(item)} className="bi bi-trash3 icons-styles text-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#modalDeleteSing" title="Eliminar"></i>
+                                            </td>
+                                        </tr>
+                                    ))
+                                    : <tr>
+                                        <td colSpan="12" className="text-center"><h2 className='h2 my-5'>No se encontraron datos</h2></td>
                                     </tr>
-                                ))}
+                                }
                             </tbody>
                         </table>
-                        {modalImage()}
-                        {<EliminarLetrero letrero={itemSelect} onDelete={readSignTable} setLoading={setLoading} />}
-                        {<ActualizarLetrero letrero={itemSelect} onUpdate={readSignTable} setLoading={setLoading} />}
+
 
                     </div>
                 </section>
@@ -182,13 +184,14 @@ export default function inicio() {
         readSignTable()
     }, [])
 
-
-
     return (
         <>
             {loading ? <span id="content-loading"> <img src={cargando} alt='cargando' /></span> :
                 e500 ? <ErrorServer />
                     : mainContent()}
+            {modalImage()}
+            {<EliminarLetrero letrero={itemSelect} onDelete={readSignTable} setLoading={setLoading} />}
+            {<ActualizarLetrero letrero={itemSelect} onUpdate={readSignTable} setLoading={setLoading} />}
 
         </>
     )

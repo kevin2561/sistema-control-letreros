@@ -60,14 +60,14 @@ export default function ActualizarLetrero({ letrero, onUpdate, setLoading }) {
             if (onUpdate) onUpdate();
             setMensaje("")
             setTimeout(() => {
-                setMensaje(`Letrero N°${result.idLetrero} Actualizado .`)
+                setMensaje(`Letrero N°${letrero.idLetrero} Actualizado .`)
                 setTipoMensaje(true)
             }, 10);
 
         } catch (error) {
             setMensaje("")
             setTimeout(() => {
-                setMensaje("Error, Intento más tarde.")
+                setMensaje(`Error, al actualizar el Letrero N°${letrero.idLetrero}`)
                 setTipoMensaje(false)
             }, 10);
         }

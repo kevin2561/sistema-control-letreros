@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../assets/pinguino_logo.png'
+// import logo from '../assets/pinguino_logo.png'
+import logo from '../assets/logov3.png'
+
 import './Header.css'
 
 export default function Header() {
   return (
-    <header className='sticky-top'>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <>
+      <nav id='main-nav' className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div className="container-fluid">
-          <div className='content-logo'>
+          <div className='content-logo-nav'>
             <img src={logo} />
-
           </div>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -23,6 +24,6 @@ export default function Header() {
           </div>
         </div>
       </nav>
-    </header>
+    </ >
   )
 }
