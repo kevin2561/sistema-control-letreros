@@ -62,7 +62,7 @@ export default function CrearLetrero() {
             }
 
         } catch (error) {
-            // console.log(error)
+            console.log("Error Page " + error)
             setMensaje("")
             setTimeout(() => {
                 setMensaje("Error, Intento más tarde.")

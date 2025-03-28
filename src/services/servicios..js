@@ -3,18 +3,15 @@ const url = "http://localhost:9090/letrero";
 export const readSing = async () => {
     try {
         const response = await fetch(`${url}/get`)
-        if (!response.ok) {
-            console.log(`Error R: ${response.status}`)
-        }
+        if (!response.ok) throw new Error("Error al cargar los datos");
         const data = await response.json()
         // console.log(data)
         return data;
 
     } catch (error) {
-        console.log(`Error Catch: ${error}`)
+        throw error;
     }
 }
-
 
 export const createServiceSing = async (letrero) => {
     try {
@@ -30,7 +27,7 @@ export const createServiceSing = async (letrero) => {
         return data;
     }
     catch (error) {
-        console.error(error);
+        throw error;
     }
 }
 
@@ -43,11 +40,12 @@ export const updateServiceSing = async (id, letrero) => {
         })
         if (!response.ok) throw new Error("Error al crear el letrero");
         const data = await response.json()
-        console.log("PUT: " + data)
+        // console.log("PUT: " + data)
         return data
 
     } catch (error) {
-        console.log("Error Servicio: " + error)
+        // console.log("Error Servicio: " + error)
+        throw error;
 
 
     }
@@ -61,11 +59,12 @@ export const deleteSing = async (id) => {
             method: "DELETE",
         })
         const data = await response.json();
+        // console.log(data)
         return data;
-        console.log(data)
 
     } catch (error) {
         console.log(error)
+        throw error;
 
     }
 

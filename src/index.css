@@ -6,40 +6,21 @@
 
 html,
 body {
-    height: 100%;
-    width: 100%;
+ 
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 #main-content {
     width: 100%;
-    min-height: 100%;
+    /* min-height: 100vh%; */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 3rem auto;
     /* Cambiado height: 100vh por min-height */
 }
 
 /* Asegura que el footer quede en la parte inferior */
-footer {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    background: black;
-    color: white;
-    overflow: hidden;
-
-}
-/* .content-loading{
-    background-color: red;
-    width: 750px;
-    height: 500px;
-} */
-.i-loading {
-    width: 300px !important;
-    height: 300px !important;
-    margin-top: 50px !important;
-    margin-bottom: 50px !important;
-  }

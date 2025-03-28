@@ -62,3 +62,13 @@
 #modalImagen .btn-close {
     font-size: 30px;
 }
+/* LOADING */
+#content-loading{
+    width: 350px;
+    height: 350px;
+
+}
+#content-loading img{
+    width: 100% !important;
+    height: 100% !important;
+}
