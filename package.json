@@ -1,5 +1,5 @@
 {
-  "main": "electron.js",
+  "main": "main.js",
   "name": "sistema-pepe",
   "private": true,
   "version": "1.0.1",
@@ -46,7 +46,7 @@
     },
     "files": [
       "dist/**/*",
-      "electron.js"
+      "main.js"
     ],
     "win": {
       "target": "nsis",

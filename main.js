@@ -1,6 +1,12 @@
 import { app, BrowserWindow, dialog, globalShortcut } from 'electron';
 import updater from "electron-updater";
 import path from 'path';
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log("🚀 Electron app started");
 
 const { autoUpdater } = updater;
 let mainWindow;
@@ -9,7 +15,7 @@ app.whenReady().then(() => {
     mainWindow = new BrowserWindow({
         width: 1200,
         height: 800,
-        icon: path.join(__dirname, "public", "logo.ico"), // Cambia a tu icono
+        icon: path.join(__dirname, "logo.ico"), // Cambia a tu icono
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -18,11 +24,13 @@ app.whenReady().then(() => {
     });
 
     // En desarrollo carga el servidor de Vite, en producción carga el archivo HTML generado
-    const startUrl = app.isPackaged
-        ? `file://${path.join(__dirname, "dist", "index.html")}`
-        : "http://localhost:5173"; // Vite por defecto usa el puerto 5173
+    if (app.isPackaged) {
+        const indexPath = path.join(__dirname, "dist", "index.html");
+        mainWindow.loadFile(indexPath);
+    } else {
+        mainWindow.loadURL("http://localhost:5173");
+    }
 
-    mainWindow.loadURL(startUrl);
 
     // Habilitar DevTools con atajo
     globalShortcut.register("Ctrl+Shift+I", () => {
@@ -42,7 +50,6 @@ app.on("window-all-closed", () => {
 });
 
 function setupUpdater() {
-
     autoUpdater.setFeedURL({
         provider: 'github',
         owner: 'kevin2561', // Tu nombre de usuario de GitHub
