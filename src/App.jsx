@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter,BrowserRouter, Route, Routes } from 'react-router-dom'
 import CrearLetrero from './pages/CrearLetrero'
 import Inicio from './pages/Inicio'
 import Footer from './common/Footer'
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <main id='main-content'>
 
@@ -23,7 +23,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }
