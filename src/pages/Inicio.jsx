@@ -186,8 +186,8 @@ export default function inicio() {
 
     return (
         <>
-            {loading ? <span id="content-loading"> <img src={cargando} alt='cargando' /></span> :
-                e500 ? <ErrorServer />
+            {loading ? <span id="content-loading"> <img src={cargando} alt='cargando' /></span>
+                : e500 ? <ErrorServer />
                     : mainContent()}
             {modalImage()}
             {<EliminarLetrero letrero={itemSelect} onDelete={readSignTable} setLoading={setLoading} />}

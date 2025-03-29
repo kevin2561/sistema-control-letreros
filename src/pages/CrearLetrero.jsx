@@ -62,7 +62,7 @@ export default function CrearLetrero() {
             }
 
         } catch (error) {
-            console.log("Error Page " + error)
+            // console.log("Error Page " + error)
             setMensaje("")
             setTimeout(() => {
                 setMensaje("Error, Intentelo de nuevo.")
@@ -117,7 +117,7 @@ export default function CrearLetrero() {
 
                         {/* <!-- Campo Fecha Caduca */}
                         <div className="col-md-6">
-                            <label className="form-label fw-bold">Fecha Caduca</label>
+                            <label className="form-label fw-bold">Fecha Caducada</label>
                             <input type="date" name="fechaCaducada" onChange={(e) => handlerOnchange(e)} className="form-control" value={formData.fechaCaducada} required />
                         </div>
                     </div >
@@ -133,7 +133,7 @@ export default function CrearLetrero() {
                     {/* Botón Crear */}
                     <div className="text-center mt-4">
                         <button type="submit" className="btn btn-primary ps-4 pe-4" >
-                            <i className="bi bi-plus-circle"></i> Crear
+                            <i className="bi bi-plus-circle"></i> Crear Letrero
                         </button>
                     </div >
 
