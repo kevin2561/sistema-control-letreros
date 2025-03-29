@@ -5,9 +5,8 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
 
-  //electron por si acaso   
-  // base: "./", // Esto ayuda a que Electron cargue correctamente los archivos en producción
-  // build: {
-  //   outDir: "dist",
-  // }
+  base: "./",
+  build: {
+    outDir: "dist",
+  }
 })
