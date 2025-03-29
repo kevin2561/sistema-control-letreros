@@ -1,7 +1,8 @@
 import { app, BrowserWindow, dialog, globalShortcut } from 'electron';
-import { autoUpdater } from 'electron-updater';
+import updater from "electron-updater";
 import path from 'path';
 
+const { autoUpdater } = updater;
 let mainWindow;
 
 app.whenReady().then(() => {
