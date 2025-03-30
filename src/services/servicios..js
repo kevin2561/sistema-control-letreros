@@ -1,4 +1,5 @@
-const url = "http://localhost:9090/letrero";
+// const url = "http://localhost:9090/letrero";
+const url= "https://sistema-letreros-railway-production-56b7.up.railway.app/letrero"
 
 export const readSing = async () => {
     try {
