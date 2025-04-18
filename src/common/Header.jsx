@@ -18,8 +18,8 @@ export default function Header() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link to={"/"} className="nav-link active" aria-current="page" >Inicio</Link>
-              <Link to={"/crear-letrero"} className="nav-link" >Crear Letrero</Link>
+              <Link to={"/"} className="nav-link active" href="#" aria-current="page" >Inicio</Link>
+              <Link to={"/crear-letrero"} className="nav-link" href="#" >Crear Letrero</Link>
             </div>
           </div>
         </div>
